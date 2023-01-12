@@ -22,7 +22,9 @@ export const Row = ({isLargeRow, title, id, fetchUrl}) => {
       <h2>{title}</h2>
       <div className="slider">
         <div className="slider_arrow_left">
-          <span className="arrow">{"<"}</span>
+          <span className="arrow" onClick={()=>{
+            document.getElementById(id).scrollLeft -= window.innerWidth;
+          }}>{"<"}</span>
         </div>
       <div id={id} className="row_posters">
         {
@@ -37,7 +39,9 @@ export const Row = ({isLargeRow, title, id, fetchUrl}) => {
         }
       </div>
         <div className="slider_arrow_right">
-          <span className="arrow">{">"}</span>
+          <span className="arrow" onClick={()=>{
+            document.getElementById(id).scrollLeft += window.innerWidth;
+          }}>{">"}</span>
         </div>
       </div>
     </section>

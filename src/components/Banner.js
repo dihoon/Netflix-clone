@@ -33,10 +33,6 @@ const Banner = () => {
     return str?.length > n ? str.substr(0, n - 1) + "..." : str;
   };
 
-  useEffect(() => {
-    console.log(isClicked);
-  }, [isClicked]);
-
   // play 버튼 누르지 않았을 때
   if (!isClicked) {
     return (
