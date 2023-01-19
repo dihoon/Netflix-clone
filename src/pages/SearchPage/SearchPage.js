@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import myAxios from "../../api/axios";
+import { useDebounce } from "../../hooks/useDebounce";
 import "./SearchPage.css";
 
 export const SearchPage = () => {
@@ -14,6 +15,7 @@ export const SearchPage = () => {
 
   const query = useQuery();
   const searchTerm = query.get("q");
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
   const fetchSearchMovie = async (searchTerm) => {
     try {
@@ -27,8 +29,8 @@ export const SearchPage = () => {
   };
 
   useEffect(() => {
-    if (searchTerm) fetchSearchMovie(searchTerm);
-  }, [searchTerm]);
+    if (debouncedSearchTerm) fetchSearchMovie(debouncedSearchTerm);
+  }, [debouncedSearchTerm]);
 
   const renderSearchResults = () => {
     return searchResults.length > 0 ? (
@@ -51,7 +53,7 @@ export const SearchPage = () => {
     ) : (
       <section className="no_results">
         <div className="no_results_text">
-          <p>Your search for "{searchTerm}" did not have any matches.</p>
+          <p>Your search for "{debouncedSearchTerm}" did not have any matches.</p>
           <p>Suggestions:</p>
           <ul>
             <li>Try different keywords</li>
